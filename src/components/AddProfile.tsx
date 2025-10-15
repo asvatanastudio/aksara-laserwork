@@ -1,29 +1,43 @@
-import { useState } from 'react';
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
-import { Label } from "./ui/label";
-import { Textarea } from "./ui/textarea";
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
-import { Upload, FileText, User, Briefcase } from "lucide-react";
+import { Button } from "./ui/button.tsx";
+import { Input } from "./ui/input.tsx";
+import { Label } from "./ui/label.tsx";
+import { Textarea } from "./ui/textarea.tsx";
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card.tsx";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select.tsx";
+import * as React from "react";
+import { useState } from "react";
+import { User, Briefcase, FileText, Upload } from "lucide-react";
+
+// Mendefinisikan tipe FormData
+interface FormData {
+  fullName: string;
+  email: string;
+  phone: string;
+  location: string;
+  experience: string;
+  education: string;
+  skills: string;
+  expectedSalary: string;
+  summary: string;
+}
 
 export default function AddProfile() {
-  const [formData, setFormData] = useState({
-    fullName: '',
-    email: '',
-    phone: '',
-    location: '',
-    experience: '',
-    education: '',
-    skills: '',
-    summary: '',
-    expectedSalary: ''
+  const [formData, setFormData] = useState<FormData>({
+    // Inisialisasi semua properti agar sesuai dengan interface
+    fullName: "",
+    email: "",
+    phone: "",
+    location: "",
+    experience: "",
+    education: "",
+    skills: "",
+    expectedSalary: "",
+    summary: "",
   });
-
   const [uploadedCV, setUploadedCV] = useState<File | null>(null);
 
-  const handleInputChange = (field: string, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+  const handleInputChange = (field: keyof FormData, value: string) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,8 +49,9 @@ export default function AddProfile() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData, uploadedCV);
-    alert('Profil berhasil disimpan!');
+    console.log("Form submitted:", formData, uploadedCV);
+    // CATATAN: alert() sebaiknya diganti dengan komponen modal/toast untuk UX yang lebih baik
+    alert("Profil berhasil disimpan!");
   };
 
   return (
@@ -44,9 +59,7 @@ export default function AddProfile() {
       <div className="mb-8 relative">
         <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-accent/10 -z-10 rounded-lg"></div>
         <h2 className="mb-2 pt-6 uppercase tracking-wide">Tambah Profil Kerja Saya</h2>
-        <p className="text-muted-foreground">
-          Lengkapi profil Anda untuk mendapatkan rekomendasi pekerjaan yang lebih baik
-        </p>
+        <p className="text-muted-foreground">Lengkapi profil Anda untuk mendapatkan rekomendasi pekerjaan yang lebih baik</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-8">
@@ -58,47 +71,23 @@ export default function AddProfile() {
               Informasi Pribadi
             </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-4 pt-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <Label htmlFor="fullName">Nama Lengkap *</Label>
-                <Input
-                  id="fullName"
-                  value={formData.fullName}
-                  onChange={(e) => handleInputChange('fullName', e.target.value)}
-                  placeholder="Masukkan nama lengkap"
-                  required
-                />
+                <Input id="fullName" value={formData.fullName} onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange("fullName", e.target.value)} placeholder="Masukkan nama lengkap" required />
               </div>
               <div>
                 <Label htmlFor="email">Email *</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  value={formData.email}
-                  onChange={(e) => handleInputChange('email', e.target.value)}
-                  placeholder="email@example.com"
-                  required
-                />
+                <Input id="email" type="email" value={formData.email} onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange("email", e.target.value)} placeholder="email@example.com" required />
               </div>
               <div>
                 <Label htmlFor="phone">Nomor Telefon *</Label>
-                <Input
-                  id="phone"
-                  value={formData.phone}
-                  onChange={(e) => handleInputChange('phone', e.target.value)}
-                  placeholder="+62 xxx-xxxx-xxxx"
-                  required
-                />
+                <Input id="phone" value={formData.phone} onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange("phone", e.target.value)} placeholder="+62 xxx-xxxx-xxxx" required />
               </div>
               <div>
                 <Label htmlFor="location">Lokasi</Label>
-                <Input
-                  id="location"
-                  value={formData.location}
-                  onChange={(e) => handleInputChange('location', e.target.value)}
-                  placeholder="Kota, Provinsi"
-                />
+                <Input id="location" value={formData.location} onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange("location", e.target.value)} placeholder="Kota, Provinsi" />
               </div>
             </div>
           </CardContent>
@@ -112,11 +101,11 @@ export default function AddProfile() {
               Informasi Profesional
             </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-4 pt-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <Label htmlFor="experience">Pengalaman Kerja</Label>
-                <Select onValueChange={(value) => handleInputChange('experience', value)}>
+                <Select onValueChange={(value: string) => handleInputChange("experience", value)}>
                   <SelectTrigger>
                     <SelectValue placeholder="Pilih pengalaman kerja" />
                   </SelectTrigger>
@@ -130,7 +119,7 @@ export default function AddProfile() {
               </div>
               <div>
                 <Label htmlFor="education">Pendidikan Terakhir</Label>
-                <Select onValueChange={(value) => handleInputChange('education', value)}>
+                <Select onValueChange={(value: string) => handleInputChange("education", value)}>
                   <SelectTrigger>
                     <SelectValue placeholder="Pilih pendidikan terakhir" />
                   </SelectTrigger>
@@ -144,33 +133,23 @@ export default function AddProfile() {
                 </Select>
               </div>
             </div>
-            
+
             <div>
               <Label htmlFor="skills">Keahlian (pisahkan dengan koma)</Label>
-              <Input
-                id="skills"
-                value={formData.skills}
-                onChange={(e) => handleInputChange('skills', e.target.value)}
-                placeholder="React, JavaScript, Python, SQL, etc."
-              />
+              <Input id="skills" value={formData.skills} onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange("skills", e.target.value)} placeholder="React, JavaScript, Python, SQL, etc." />
             </div>
-            
+
             <div>
               <Label htmlFor="expectedSalary">Ekspektasi Gaji (Rp)</Label>
-              <Input
-                id="expectedSalary"
-                value={formData.expectedSalary}
-                onChange={(e) => handleInputChange('expectedSalary', e.target.value)}
-                placeholder="5000000"
-              />
+              <Input id="expectedSalary" value={formData.expectedSalary} onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange("expectedSalary", e.target.value)} placeholder="5000000" />
             </div>
-            
+
             <div>
-              <Label htmlFor="summary">Ringkasan Profesional</Label>
+              <Label htmlFor="summary">Ringkas Profesional</Label>
               <Textarea
                 id="summary"
                 value={formData.summary}
-                onChange={(e) => handleInputChange('summary', e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => handleInputChange("summary", e.target.value)}
                 placeholder="Ceritakan tentang diri Anda, pengalaman, dan tujuan karir..."
                 rows={4}
               />
@@ -186,32 +165,20 @@ export default function AddProfile() {
               Upload CV
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-6">
             <div className="border-2 border-dashed border-muted rounded-lg p-8 text-center">
               <Upload className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
               <div className="space-y-2">
                 <p>Drag & drop CV Anda atau klik untuk browse</p>
-                <p className="text-sm text-muted-foreground">
-                  Format yang didukung: PDF, DOC, DOCX (Max. 5MB)
-                </p>
+                <p className="text-sm text-muted-foreground">Format yang didukung: PDF, DOC, DOCX (Max. 5MB)</p>
               </div>
-              <input
-                type="file"
-                accept=".pdf,.doc,.docx"
-                onChange={handleFileUpload}
-                className="hidden"
-                id="cv-upload"
-              />
+              <input type="file" accept=".pdf,.doc,.docx" onChange={handleFileUpload} className="hidden" id="cv-upload" />
               <Label htmlFor="cv-upload" className="cursor-pointer">
                 <Button type="button" variant="outline" className="mt-4 border-primary text-primary hover:bg-primary hover:text-white">
                   Pilih File
                 </Button>
               </Label>
-              {uploadedCV && (
-                <p className="mt-2 text-sm text-primary font-semibold">
-                  File terpilih: {uploadedCV.name}
-                </p>
-              )}
+              {uploadedCV && <p className="mt-2 text-sm text-primary font-semibold">File terpilih: {uploadedCV.name}</p>}
             </div>
           </CardContent>
         </Card>
