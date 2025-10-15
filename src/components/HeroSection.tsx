@@ -1,12 +1,12 @@
-import { Button } from "./ui/button";
+import { Button } from "./ui/button.js";
 import { ArrowRight, Zap, Award, Users } from "lucide-react";
-import { ImageWithFallback } from './figma/ImageWithFallback';
+import { ImageWithFallback } from "./figma/ImageWithFallback.js";
 
 export default function HeroSection() {
   const scrollToContact = () => {
-    const element = document.getElementById('contact');
+    const element = document.getElementById("contact");
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -14,42 +14,33 @@ export default function HeroSection() {
     <section id="home" className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-gradient-to-br from-secondary via-secondary to-secondary/90">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
-        <div className="absolute inset-0" style={{
-          backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255,107,53,.1) 35px, rgba(255,107,53,.1) 70px)',
-        }}></div>
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255,107,53,.1) 35px, rgba(255,107,53,.1) 70px)",
+          }}
+        ></div>
       </div>
 
       <div className="max-w-7xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-12 items-center relative z-10">
         {/* Left Content */}
         <div className="space-y-6">
           <div className="inline-block">
-            <span className="px-4 py-2 bg-primary/20 text-primary rounded-full text-sm uppercase tracking-wider border border-primary/30">
-              Solusi Laser Terpercaya
-            </span>
+            <span className="px-4 py-2 bg-primary/20 text-primary rounded-full text-sm uppercase tracking-wider border border-primary/30">Solusi Laser Terpercaya</span>
           </div>
 
           <h1 className="text-5xl md:text-6xl text-white uppercase tracking-tight">
             Presisi <span className="text-primary">Laser Cutting</span> & Engraving
           </h1>
 
-          <p className="text-xl text-gray-300">
-            Menghadirkan teknologi laser cutting & engraving terkini untuk berbagai kebutuhan industri dan kreatif Anda dengan presisi tinggi dan hasil maksimal.
-          </p>
+          <p className="text-xl text-gray-300">Menghadirkan teknologi laser cutting & engraving terkini untuk berbagai kebutuhan industri dan kreatif Anda dengan presisi tinggi dan hasil maksimal.</p>
 
           <div className="flex flex-col sm:flex-row gap-4 pt-4">
-            <Button 
-              size="lg" 
-              className="bg-primary hover:bg-primary/90 text-lg px-8"
-              onClick={scrollToContact}
-            >
+            <Button size="lg" className="bg-primary hover:bg-primary/90 text-lg px-8" onClick={scrollToContact}>
               Mulai Proyek
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
-            <Button 
-              size="lg" 
-              variant="outline" 
-              className="border-white text-white hover:bg-white hover:text-secondary text-lg px-8"
-            >
+            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-secondary text-lg px-8">
               Lihat Portfolio
             </Button>
           </div>
@@ -84,13 +75,13 @@ export default function HeroSection() {
         <div className="relative">
           <div className="absolute -inset-4 bg-primary/20 rounded-lg blur-2xl"></div>
           <div className="relative rounded-lg overflow-hidden border-4 border-primary/30 shadow-2xl">
-            <ImageWithFallback 
+            <ImageWithFallback
               src="https://images.unsplash.com/photo-1738162837330-9257f938463c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsYXNlciUyMGN1dHRpbmclMjBtZXRhbHxlbnwxfHx8fDE3NTkzMjcyODl8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
               alt="Laser Cutting Machine"
               className="w-full h-full object-cover"
             />
           </div>
-          
+
           {/* Floating Badge */}
           <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-lg shadow-xl border-l-4 border-l-primary">
             <p className="text-sm text-muted-foreground mb-1">Presisi Hingga</p>

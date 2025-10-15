@@ -1,89 +1,78 @@
-import imgRoundedRectangle from "figma:asset/525b077c9c4ad814738f94cec502d04f76f0aa31.png";
-import imgImage1 from "figma:asset/2ba893119cdefcc658bacbf83d0cce620b8a6b87.png";
-
-function Group7() {
-  return (
-    <div className="absolute contents left-[685px] top-[26px]">
-      <div className="absolute bg-gray-700 h-[61px] left-[685px] rounded-[10px] top-[26px] w-[137px]">
-        <div aria-hidden="true" className="absolute border border-[#8c7dae] border-solid inset-0 pointer-events-none rounded-[10px]" />
-      </div>
-      <p className="absolute font-['Inter:Regular',_sans-serif] font-normal h-[22px] leading-[normal] left-[707px] not-italic text-[20px] text-white top-[45px] w-[112px]">LAYANAN</p>
-    </div>
-  );
-}
-
-function Frame2() {
-  return <div className="absolute left-[922px] size-[100px] top-[7px]" />;
-}
-
-function Group9() {
-  return (
-    <div className="absolute contents left-[844px] top-[7px]">
-      <div className="absolute bg-gray-700 h-[61px] left-[844px] rounded-[10px] top-[26px] w-[152px]">
-        <div aria-hidden="true" className="absolute border border-[#8c7dae] border-solid inset-0 pointer-events-none rounded-[10px]" />
-      </div>
-      <p className="absolute font-['Inter:Regular',_sans-serif] font-normal h-[22px] leading-[normal] left-[886px] not-italic text-[20px] text-white top-[43px] w-[124.263px]">{`GALERI `}</p>
-      <Frame2 />
-    </div>
-  );
-}
-
-function Group8() {
-  return (
-    <div className="absolute contents left-[1038px] top-[44px]">
-      <p className="absolute font-['Inter:Regular',_sans-serif] font-normal h-[23px] leading-[normal] left-[1038px] not-italic text-[20px] text-white top-[44px] w-[156px]">TENTANG KAMI</p>
-    </div>
-  );
-}
-
 export default function Home() {
   return (
-    <div className="bg-white relative size-full" data-name="Home">
-      <div className="absolute bg-gray-700 h-[114px] left-0 top-0 w-[1440px]">
-        <div aria-hidden="true" className="absolute border border-gray-800 border-solid inset-0 pointer-events-none" />
-      </div>
-      <div className="absolute bg-[#1f1a2a] h-[114px] left-0 top-[910px] w-[1440px]" />
-      <div className="absolute bg-gray-700 h-[61px] left-[526px] rounded-[10px] top-[23px] w-[137px]">
-        <div aria-hidden="true" className="absolute border border-[#eeeeee] border-solid inset-0 pointer-events-none rounded-[10px]" />
-      </div>
-      <div className="absolute h-[61px] left-[22px] pointer-events-none rounded-[10px] top-[26px] w-[67px]" data-name="Rounded rectangle">
-        <img alt="" className="absolute inset-0 max-w-none object-50%-50% object-cover rounded-[10px] size-full" src={imgRoundedRectangle} />
-        <div aria-hidden="true" className="absolute border-4 border-[#8c7dae] border-solid inset-0 rounded-[10px]" />
-      </div>
-      <div className="absolute bg-gray-700 h-[61px] left-[1021px] rounded-[10px] top-[27px] w-[190px]">
-        <div aria-hidden="true" className="absolute border border-[#8c7dae] border-solid inset-0 pointer-events-none rounded-[10px]" />
-      </div>
-      <div className="absolute bg-gray-700 h-[61px] left-[1233px] rounded-[10px] top-[23px] w-[136px]">
-        <div aria-hidden="true" className="absolute border border-[#8c7dae] border-solid inset-0 pointer-events-none rounded-[10px]" />
-      </div>
-      <div className="absolute bg-gray-600 h-[455px] left-0 top-[107px] w-[1440px]" />
-      <p className="absolute font-['Notable:Regular',_sans-serif] leading-[normal] left-[20px] not-italic text-[64px] text-white top-[137px] w-[811px]">Presisi dalam Setiap Potongan</p>
-      <p className="absolute font-['Inter:Regular',_sans-serif] font-normal leading-[normal] left-[20px] not-italic text-[24px] text-nowrap text-white top-[303px] whitespace-pre">
-        Aksara Laserwork menghadirkan layanan laser cutting dan engraving profesional
-        <br aria-hidden="true" />
-        {` dengan ketelitian tinggi untuk kebutuhan industri maupun kreatif.`}
-      </p>
-      <p className="absolute font-['Inter:Regular',_sans-serif] font-normal h-[22px] leading-[normal] left-[538px] not-italic text-[20px] text-white top-[42px] w-[112px]">BERANDA</p>
-      <Group7 />
-      <Group9 />
-      <Group8 />
-      <p className="absolute font-['Inter:Regular',_sans-serif] font-normal h-[23px] leading-[normal] left-[1254px] not-italic text-[20px] text-white top-[42px] w-[156px]">KONTAK</p>
-      <p className="absolute font-['Inter:Regular',_sans-serif] font-normal h-[48px] leading-[normal] left-[714px] not-italic text-[20px] text-white top-[958px] w-[208px]">FOOTER</p>
-      <p className="absolute font-['Inter:Regular',_sans-serif] font-normal h-[44px] leading-[normal] left-[147px] not-italic text-[15px] text-center text-white top-[40px] translate-x-[-50%] w-[116px]">
-        AKSARA
-        <br aria-hidden="true" />
-        {` LASERWORK `}
-      </p>
-      <div className="absolute left-[1000px] size-[369px] top-[142px]" data-name="image 1">
-        <img alt="" className="absolute inset-0 max-w-none object-50%-50% object-cover pointer-events-none size-full" src={imgImage1} />
-      </div>
-      <div className="absolute bg-[#dd7311] h-[71px] left-[55px] rounded-[15px] top-[441px] w-[243px]" />
-      <div className="absolute bg-[#dd7311] h-[71px] left-[532px] rounded-[15px] top-[441px] w-[235px]" data-name="Rectangle" />
-      <p className="absolute font-['Inter:Regular',_sans-serif] font-normal h-[64px] leading-[normal] left-[89px] not-italic text-[24px] text-white top-[467px] w-[225px]">{`LIHAT LAYANAN `}</p>
-      <p className="absolute font-['Inter:Regular',_sans-serif] font-normal h-[29px] leading-[normal] left-[554px] not-italic text-[24px] text-white top-[467px] w-[290px]">HUBUNGI KAMI</p>
-      <div className="absolute bg-white h-[359px] left-0 top-[551px] w-[1440px]" />
-      <p className="absolute font-['Inter:Regular',_sans-serif] font-normal h-[95px] leading-[normal] left-[336px] not-italic text-[40px] text-black top-[562px] w-[747px]">Mengapa Memilih Aksara Laserwork?</p>
-      <p className="absolute font-['Inter:Regular',_sans-serif] font-normal h-[68px] leading-[normal] left-[675.5px] not-italic text-[32px] text-black text-center top-[634px] translate-x-[-50%] w-[891px]">Dengan pengalaman lebih dari 10 tahun, kami berkomitmen untuk memberikan solusi laser cutting yang inovatif, cepat, dan berkualitas. Tim profesional kami siap membantu Anda mewujudkan desain dan kebutuhan industri dengan standar tinggi.</p>
+    <div className="bg-white" data-name="Home">
+      <header className="bg-gray-700 text-white h-[114px] flex items-center justify-between px-8">
+        <div className="flex items-center gap-4">
+          {/* PERBAIKAN 1: Gunakan <img> (huruf kecil) */}
+          {/* PERBAIKAN 2: Perbaiki path src */}
+          <img
+            src="/image/logo.png" // Ganti 'logo.png' dengan nama file Anda yang sebenarnya
+            alt="Aksara Laserwork Logo"
+            width="67"
+            height="61"
+            className="rounded-[10px]"
+          />
+
+          <div className="text-center font-inter">
+            <p className="font-bold">AKSARA</p>
+            <p>LASERWORK</p>
+          </div>
+        </div>
+        <nav className="flex items-center gap-4 text-lg font-inter">
+          <a href="#beranda" className="px-6 py-4 rounded-lg bg-gray-800 border border-white">
+            BERANDA
+          </a>
+          <a href="#layanan" className="px-6 py-4 rounded-lg hover:bg-gray-800 transition-colors">
+            LAYANAN
+          </a>
+          <a href="#galeri" className="px-6 py-4 rounded-lg hover:bg-gray-800 transition-colors">
+            GALERI
+          </a>
+          <a href="#tentang" className="px-6 py-4 rounded-lg hover:bg-gray-800 transition-colors">
+            TENTANG KAMI
+          </a>
+          <a href="#kontak" className="px-6 py-4 rounded-lg hover:bg-gray-800 transition-colors">
+            KONTAK
+          </a>
+        </nav>
+      </header>
+
+      {/* ===== Hero Section ===== */}
+      <main>
+        <section className="bg-gray-600 text-white flex items-center px-8 py-20 min-h-[448px]">
+          <div className="flex-1 space-y-8">
+            <h1 className="font-notable text-6xl max-w-3xl">Presisi dalam Setiap Potongan</h1>
+            <p className="font-inter text-2xl max-w-4xl">Aksara Laserwork menghadirkan layanan laser cutting dan engraving profesional dengan ketelitian tinggi untuk kebutuhan industri maupun kreatif.</p>
+            <div className="flex gap-8 pt-8">
+              <button className="bg-[#dd7311] font-bold text-2xl px-8 py-5 rounded-[15px] hover:opacity-90 transition-opacity">LIHAT LAYANAN</button>
+              <button className="bg-[#dd7311] font-bold text-2xl px-8 py-5 rounded-[15px] hover:opacity-90 transition-opacity">HUBUNGI KAMI</button>
+            </div>
+          </div>
+          <div className="flex-1 flex justify-center">
+            {/* PERBAIKAN 1: Gunakan <img> (huruf kecil) */}
+            <img
+              src="/image/hero-image.png" // Ganti dengan nama file gambar hero Anda
+              alt="Contoh hasil laser cutting"
+              width="369"
+              height="369"
+            />
+          </div>
+        </section>
+
+        {/* ===== Why Us Section ===== */}
+        <section className="bg-white py-20 px-8 text-center">
+          <h2 className="font-inter text-4xl font-bold mb-6">Mengapa Memilih Aksara Laserwork?</h2>
+          <p className="font-inter text-2xl max-w-4xl mx-auto text-gray-700">
+            Dengan pengalaman lebih dari 10 tahun, kami berkomitmen untuk memberikan solusi laser cutting yang inovatif, cepat, dan berkualitas. Tim profesional kami siap membantu Anda mewujudkan desain dan kebutuhan industri dengan standar
+            tinggi.
+          </p>
+        </section>
+      </main>
+
+      {/* ===== Footer Section ===== */}
+      <footer className="bg-[#1f1a2a] text-white h-[114px] flex items-center justify-center">
+        <p className="font-inter text-xl">FOOTER</p>
+      </footer>
     </div>
   );
 }

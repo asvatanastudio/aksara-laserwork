@@ -1,17 +1,18 @@
-import { useState } from 'react';
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
-import { Label } from "./ui/label";
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
-import { Badge } from "./ui/badge";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { Slider } from "./ui/slider";
-import { Checkbox } from "./ui/checkbox";
-import { Separator } from "./ui/separator";
-import { Search, Filter, MapPin, Calendar, Star, Download, SortAsc, SortDesc } from "lucide-react";
-import { ImageWithFallback } from './figma/ImageWithFallback';
+import { useState } from "react";
+import { Button } from "./ui/button.js";
+import { Input } from "./ui/input.js";
+import { Label } from "./ui/label.js";
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card.js";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select.js";
+import { Badge } from "./ui/badge.js";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar.js";
+import { Slider } from "./ui/slider.js";
+import { Checkbox } from "./ui/checkbox.js";
+import { Separator } from "./ui/separator.js";
+import { Search, Filter, MapPin, Star, Download, SortAsc, SortDesc } from "lucide-react";
+import { ImageWithFallback } from "./figma/ImageWithFallback.jsx";
 
+// Data Kandidat (tidak diubah)
 const mockCandidates = [
   {
     id: 1,
@@ -27,7 +28,7 @@ const mockCandidates = [
     rating: 4.8,
     appliedDate: "2024-01-15",
     status: "Shortlisted",
-    jobPosition: "Frontend Developer"
+    jobPosition: "Frontend Developer",
   },
   {
     id: 2,
@@ -43,7 +44,7 @@ const mockCandidates = [
     rating: 4.6,
     appliedDate: "2024-01-14",
     status: "Applied",
-    jobPosition: "UI/UX Designer"
+    jobPosition: "UI/UX Designer",
   },
   {
     id: 3,
@@ -59,7 +60,7 @@ const mockCandidates = [
     rating: 4.9,
     appliedDate: "2024-01-13",
     status: "Interview",
-    jobPosition: "Backend Developer"
+    jobPosition: "Backend Developer",
   },
   {
     id: 4,
@@ -75,7 +76,7 @@ const mockCandidates = [
     rating: 4.7,
     appliedDate: "2024-01-12",
     status: "Applied",
-    jobPosition: "Product Manager"
+    jobPosition: "Product Manager",
   },
   {
     id: 5,
@@ -91,7 +92,7 @@ const mockCandidates = [
     rating: 4.5,
     appliedDate: "2024-01-11",
     status: "Applied",
-    jobPosition: "DevOps Engineer"
+    jobPosition: "DevOps Engineer",
   },
   {
     id: 6,
@@ -107,101 +108,90 @@ const mockCandidates = [
     rating: 4.4,
     appliedDate: "2024-01-10",
     status: "Shortlisted",
-    jobPosition: "Data Scientist"
-  }
+    jobPosition: "Data Scientist",
+  },
 ];
 
-const statusColors = {
-  "Applied": "bg-blue-100 text-blue-800",
-  "Shortlisted": "bg-yellow-100 text-yellow-800",
-  "Interview": "bg-green-100 text-green-800",
-  "Rejected": "bg-red-100 text-red-800"
+// Menambahkan tipe eksplisit untuk keamanan
+const statusColors: Record<string, string> = {
+  Applied: "bg-blue-100 text-blue-800",
+  Shortlisted: "bg-yellow-100 text-yellow-800",
+  Interview: "bg-green-100 text-green-800",
+  Rejected: "bg-red-100 text-red-800",
 };
 
 export default function CompanyDashboard() {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [locationFilter, setLocationFilter] = useState('');
-  const [experienceFilter, setExperienceFilter] = useState('');
-  const [statusFilter, setStatusFilter] = useState('');
-  const [educationFilter, setEducationFilter] = useState('');
-  const [jobPositionFilter, setJobPositionFilter] = useState('');
-  const [salaryRange, setSalaryRange] = useState([5000000, 20000000]);
-  const [ratingRange, setRatingRange] = useState([3.0, 5.0]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [locationFilter, setLocationFilter] = useState("");
+  const [experienceFilter, setExperienceFilter] = useState("");
+  const [statusFilter, setStatusFilter] = useState("");
+  const [educationFilter, setEducationFilter] = useState("");
+  const [jobPositionFilter, setJobPositionFilter] = useState("");
+  // Menambahkan tipe yang lebih spesifik
+  const [salaryRange, setSalaryRange] = useState<[number, number]>([5000000, 20000000]);
+  const [ratingRange, setRatingRange] = useState<[number, number]>([3.0, 5.0]);
   const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
-  const [sortBy, setSortBy] = useState('');
-  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
+  const [sortBy, setSortBy] = useState("");
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
 
-  // Get all unique skills for filter
-  const allSkills = Array.from(new Set(mockCandidates.flatMap(candidate => candidate.skills)));
-  
-  // Get all unique job positions for filter
-  const allJobPositions = Array.from(new Set(mockCandidates.map(candidate => candidate.jobPosition)));
+  const allSkills = Array.from(new Set(mockCandidates.flatMap((candidate) => candidate.skills)));
+  const allJobPositions = Array.from(new Set(mockCandidates.map((candidate) => candidate.jobPosition)));
 
-  const filteredCandidates = mockCandidates.filter(candidate => {
-    const matchesSearch = candidate.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         candidate.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         candidate.skills.some(skill => skill.toLowerCase().includes(searchTerm.toLowerCase()));
-    
-    const matchesLocation = !locationFilter || candidate.location.includes(locationFilter);
-    const matchesExperience = !experienceFilter || candidate.experience === experienceFilter;
-    const matchesStatus = !statusFilter || candidate.status === statusFilter;
-    const matchesEducation = !educationFilter || candidate.education === educationFilter;
-    const matchesJobPosition = !jobPositionFilter || candidate.jobPosition === jobPositionFilter;
-    
-    const matchesSalary = candidate.expectedSalaryNum >= salaryRange[0] && candidate.expectedSalaryNum <= salaryRange[1];
-    const matchesRating = candidate.rating >= ratingRange[0] && candidate.rating <= ratingRange[1];
-    
-    const matchesSkills = selectedSkills.length === 0 || 
-                         selectedSkills.some(skill => candidate.skills.includes(skill));
+  const filteredCandidates = mockCandidates
+    .filter((candidate) => {
+      const matchesSearch =
+        candidate.name.toLowerCase().includes(searchTerm.toLowerCase()) || candidate.title.toLowerCase().includes(searchTerm.toLowerCase()) || candidate.skills.some((skill) => skill.toLowerCase().includes(searchTerm.toLowerCase()));
+      const matchesLocation = !locationFilter || candidate.location.includes(locationFilter);
+      const matchesExperience = !experienceFilter || candidate.experience === experienceFilter;
+      const matchesStatus = !statusFilter || candidate.status === statusFilter;
+      const matchesEducation = !educationFilter || candidate.education === educationFilter;
+      const matchesJobPosition = !jobPositionFilter || candidate.jobPosition === jobPositionFilter;
+      const matchesSalary = candidate.expectedSalaryNum >= salaryRange[0] && candidate.expectedSalaryNum <= salaryRange[1];
+      const matchesRating = candidate.rating >= ratingRange[0] && candidate.rating <= ratingRange[1];
+      const matchesSkills = selectedSkills.length === 0 || selectedSkills.some((skill) => candidate.skills.includes(skill));
 
-    return matchesSearch && matchesLocation && matchesExperience && matchesStatus && 
-           matchesEducation && matchesJobPosition && matchesSalary && matchesRating && matchesSkills;
-  }).sort((a, b) => {
-    if (!sortBy) return 0;
-    
-    let comparison = 0;
-    switch (sortBy) {
-      case 'name':
-        comparison = a.name.localeCompare(b.name);
-        break;
-      case 'rating':
-        comparison = a.rating - b.rating;
-        break;
-      case 'salary':
-        comparison = a.expectedSalaryNum - b.expectedSalaryNum;
-        break;
-      case 'date':
-        comparison = new Date(a.appliedDate).getTime() - new Date(b.appliedDate).getTime();
-        break;
-      case 'experience':
-        comparison = a.experienceYears - b.experienceYears;
-        break;
-      default:
-        return 0;
-    }
-    
-    return sortOrder === 'asc' ? comparison : -comparison;
-  });
+      return matchesSearch && matchesLocation && matchesExperience && matchesStatus && matchesEducation && matchesJobPosition && matchesSalary && matchesRating && matchesSkills;
+    })
+    .sort((a, b) => {
+      if (!sortBy) return 0;
+      let comparison = 0;
+      switch (sortBy) {
+        case "name":
+          comparison = a.name.localeCompare(b.name);
+          break;
+        case "rating":
+          comparison = a.rating - b.rating;
+          break;
+        case "salary":
+          comparison = a.expectedSalaryNum - b.expectedSalaryNum;
+          break;
+        case "date":
+          comparison = new Date(a.appliedDate).getTime() - new Date(b.appliedDate).getTime();
+          break;
+        case "experience":
+          comparison = a.experienceYears - b.experienceYears;
+          break;
+        default:
+          return 0;
+      }
+      return sortOrder === "asc" ? comparison : -comparison;
+    });
 
   const handleSkillToggle = (skill: string) => {
-    setSelectedSkills(prev => 
-      prev.includes(skill) 
-        ? prev.filter(s => s !== skill)
-        : [...prev, skill]
-    );
+    setSelectedSkills((prev) => (prev.includes(skill) ? prev.filter((s) => s !== skill) : [...prev, skill]));
   };
 
   const resetAllFilters = () => {
-    setSearchTerm('');
-    setLocationFilter('');
-    setExperienceFilter('');
-    setStatusFilter('');
-    setEducationFilter('');
-    setJobPositionFilter('');
+    setSearchTerm("");
+    setLocationFilter("");
+    setExperienceFilter("");
+    setStatusFilter("");
+    setEducationFilter("");
+    setJobPositionFilter("");
     setSalaryRange([5000000, 20000000]);
     setRatingRange([3.0, 5.0]);
     setSelectedSkills([]);
-    setSortBy('');
+    setSortBy("");
   };
 
   return (
@@ -209,12 +199,9 @@ export default function CompanyDashboard() {
       <div className="mb-8 relative">
         <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-accent/10 -z-10 rounded-lg"></div>
         <h2 className="mb-2 pt-6 uppercase tracking-wide">Dashboard Perusahaan</h2>
-        <p className="text-muted-foreground">
-          Filter dan kelola kandidat yang melamar ke posisi Anda
-        </p>
+        <p className="text-muted-foreground">Filter dan kelola kandidat yang melamar ke posisi Anda</p>
       </div>
 
-      {/* Enhanced Filters */}
       <Card className="mb-8 border-l-4 border-l-primary">
         <CardHeader className="bg-muted/30">
           <CardTitle className="flex items-center justify-between uppercase tracking-wide">
@@ -223,12 +210,7 @@ export default function CompanyDashboard() {
               Filter Kandidat Lanjutan
             </div>
             <div className="flex items-center space-x-2">
-              <Button 
-                variant="outline" 
-                size="sm"
-                onClick={resetAllFilters}
-                className="border-secondary text-secondary hover:bg-secondary hover:text-white"
-              >
+              <Button variant="outline" size="sm" onClick={resetAllFilters} className="border-secondary text-secondary hover:bg-secondary hover:text-white">
                 Reset Semua Filter
               </Button>
               <Button variant="outline" size="sm" className="border-primary text-primary hover:bg-primary hover:text-white">
@@ -238,23 +220,15 @@ export default function CompanyDashboard() {
             </div>
           </CardTitle>
         </CardHeader>
-        <CardContent className="space-y-6">
-          {/* Basic Filters Row 1 */}
+        <CardContent className="space-y-6 pt-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div>
               <Label htmlFor="search">Cari Kandidat</Label>
               <div className="relative">
                 <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                <Input
-                  id="search"
-                  placeholder="Nama, posisi, skill..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10"
-                />
+                <Input id="search" placeholder="Nama, posisi, skill..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="pl-10" />
               </div>
             </div>
-            
             <div>
               <Label>Posisi yang Dilamar</Label>
               <Select value={jobPositionFilter} onValueChange={setJobPositionFilter}>
@@ -271,7 +245,6 @@ export default function CompanyDashboard() {
                 </SelectContent>
               </Select>
             </div>
-            
             <div>
               <Label>Lokasi</Label>
               <Select value={locationFilter} onValueChange={setLocationFilter}>
@@ -286,7 +259,6 @@ export default function CompanyDashboard() {
                 </SelectContent>
               </Select>
             </div>
-            
             <div>
               <Label>Status Aplikasi</Label>
               <Select value={statusFilter} onValueChange={setStatusFilter}>
@@ -303,8 +275,6 @@ export default function CompanyDashboard() {
               </Select>
             </div>
           </div>
-
-          {/* Basic Filters Row 2 */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <div>
               <Label>Pengalaman Kerja</Label>
@@ -321,7 +291,6 @@ export default function CompanyDashboard() {
                 </SelectContent>
               </Select>
             </div>
-            
             <div>
               <Label>Pendidikan</Label>
               <Select value={educationFilter} onValueChange={setEducationFilter}>
@@ -338,7 +307,6 @@ export default function CompanyDashboard() {
                 </SelectContent>
               </Select>
             </div>
-
             <div>
               <Label>Urutkan Berdasarkan</Label>
               <div className="flex space-x-2">
@@ -355,13 +323,8 @@ export default function CompanyDashboard() {
                     <SelectItem value="experience">Pengalaman</SelectItem>
                   </SelectContent>
                 </Select>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
-                  disabled={!sortBy}
-                >
-                  {sortOrder === 'asc' ? <SortAsc className="h-4 w-4" /> : <SortDesc className="h-4 w-4" />}
+                <Button variant="outline" size="sm" onClick={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")} disabled={!sortBy}>
+                  {sortOrder === "asc" ? <SortAsc className="h-4 w-4" /> : <SortDesc className="h-4 w-4" />}
                 </Button>
               </div>
             </div>
@@ -369,58 +332,39 @@ export default function CompanyDashboard() {
 
           <Separator />
 
-          {/* Advanced Filters */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* Salary Range */}
             <div className="space-y-4">
               <Label>Rentang Gaji Ekspektasi</Label>
               <div className="px-3">
-                <Slider
-                  value={salaryRange}
-                  onValueChange={setSalaryRange}
-                  max={25000000}
-                  min={3000000}
-                  step={500000}
-                  className="w-full"
-                />
-                <div className="flex justify-between text-sm text-muted-foreground mt-2">
-                  <span>Rp {salaryRange[0].toLocaleString('id-ID')}</span>
-                  <span>Rp {salaryRange[1].toLocaleString('id-ID')}</span>
-                </div>
+                <Slider value={salaryRange} onValueChange={(value: number[]) => setSalaryRange(value as [number, number])} max={25000000} min={3000000} step={500000} className="w-full" />
+                {salaryRange && (
+                  <div className="flex justify-between text-sm text-muted-foreground mt-2">
+                    <span>Rp {salaryRange[0].toLocaleString("id-ID")}</span>
+                    <span>Rp {salaryRange[1].toLocaleString("id-ID")}</span>
+                  </div>
+                )}
               </div>
             </div>
-
-            {/* Rating Range */}
             <div className="space-y-4">
               <Label>Rentang Rating Minimal</Label>
               <div className="px-3">
-                <Slider
-                  value={ratingRange}
-                  onValueChange={setRatingRange}
-                  max={5.0}
-                  min={1.0}
-                  step={0.1}
-                  className="w-full"
-                />
-                <div className="flex justify-between text-sm text-muted-foreground mt-2">
-                  <span>{ratingRange[0].toFixed(1)} ⭐</span>
-                  <span>{ratingRange[1].toFixed(1)} ⭐</span>
-                </div>
+                <Slider value={ratingRange} onValueChange={(value: number[]) => setRatingRange(value as [number, number])} max={5.0} min={1.0} step={0.1} className="w-full" />
+                {ratingRange && (
+                  <div className="flex justify-between text-sm text-muted-foreground mt-2">
+                    <span>{ratingRange[0].toFixed(1)} ⭐</span>
+                    <span>{ratingRange[1].toFixed(1)} ⭐</span>
+                  </div>
+                )}
               </div>
             </div>
           </div>
 
-          {/* Skills Filter */}
           <div className="space-y-4">
             <Label>Filter berdasarkan Keahlian</Label>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
               {allSkills.map((skill) => (
                 <div key={skill} className="flex items-center space-x-2">
-                  <Checkbox
-                    id={skill}
-                    checked={selectedSkills.includes(skill)}
-                    onCheckedChange={() => handleSkillToggle(skill)}
-                  />
+                  <Checkbox id={skill} checked={selectedSkills.includes(skill)} onCheckedChange={() => handleSkillToggle(skill)} />
                   <Label htmlFor={skill} className="text-sm cursor-pointer">
                     {skill}
                   </Label>
@@ -431,12 +375,7 @@ export default function CompanyDashboard() {
               <div className="flex flex-wrap gap-2 mt-3">
                 <span className="text-sm text-muted-foreground">Skill terpilih:</span>
                 {selectedSkills.map((skill) => (
-                  <Badge 
-                    key={skill} 
-                    variant="secondary" 
-                    className="cursor-pointer"
-                    onClick={() => handleSkillToggle(skill)}
-                  >
+                  <Badge key={skill} variant="secondary" className="cursor-pointer" onClick={() => handleSkillToggle(skill)}>
                     {skill} ×
                   </Badge>
                 ))}
@@ -446,16 +385,13 @@ export default function CompanyDashboard() {
         </CardContent>
       </Card>
 
-      {/* Enhanced Results Summary */}
       <div className="mb-6 flex items-center justify-between">
         <div className="flex items-center space-x-4">
           <p className="text-muted-foreground">
-            Menampilkan <span className="text-primary">{filteredCandidates.length}</span> dari <span className="text-primary">{mockCandidates.length}</span> kandidat
+            Menampilkan <span className="text-primary font-semibold">{filteredCandidates.length}</span> dari <span className="text-primary font-semibold">{mockCandidates.length}</span> kandidat
           </p>
           {(searchTerm || locationFilter || experienceFilter || statusFilter || educationFilter || jobPositionFilter || selectedSkills.length > 0) && (
-            <Badge variant="outline">
-              {[searchTerm, locationFilter, experienceFilter, statusFilter, educationFilter, jobPositionFilter, ...selectedSkills].filter(Boolean).length} filter aktif
-            </Badge>
+            <Badge variant="outline">{[searchTerm, locationFilter, experienceFilter, statusFilter, educationFilter, jobPositionFilter, ...selectedSkills].filter(Boolean).length} filter aktif</Badge>
           )}
         </div>
         <div className="flex items-center space-x-2">
@@ -466,7 +402,6 @@ export default function CompanyDashboard() {
         </div>
       </div>
 
-      {/* Candidates List */}
       <div className="grid gap-6">
         {filteredCandidates.map((candidate) => (
           <Card key={candidate.id} className="hover:shadow-xl transition-all hover:border-primary/50 border-l-4 border-l-primary">
@@ -476,22 +411,18 @@ export default function CompanyDashboard() {
                   <Avatar className="h-16 w-16">
                     <AvatarImage src="" />
                     <AvatarFallback>
-                      {candidate.name.split(' ').map(n => n[0]).join('')}
+                      {candidate.name
+                        .split(" ")
+                        .map((n) => n[0])
+                        .join("")}
                     </AvatarFallback>
                   </Avatar>
-                  
                   <div className="flex-1">
                     <div className="flex items-center justify-between mb-2">
-                      <h3 className="text-lg">{candidate.name}</h3>
-                      <Badge 
-                        className={statusColors[candidate.status as keyof typeof statusColors]}
-                      >
-                        {candidate.status}
-                      </Badge>
+                      <h3 className="text-lg font-semibold">{candidate.name}</h3>
+                      <Badge className={statusColors[candidate.status] || "bg-gray-200 text-gray-800"}>{candidate.status}</Badge>
                     </div>
-                    
                     <p className="text-muted-foreground mb-2">{candidate.title}</p>
-                    
                     <div className="flex items-center space-x-4 text-sm text-muted-foreground mb-4">
                       <div className="flex items-center">
                         <MapPin className="h-4 w-4 mr-1" />
@@ -507,7 +438,6 @@ export default function CompanyDashboard() {
                         {candidate.rating}
                       </div>
                     </div>
-                    
                     <div className="flex items-center justify-between">
                       <div>
                         <div className="flex gap-2 mb-2">
@@ -523,10 +453,9 @@ export default function CompanyDashboard() {
                           )}
                         </div>
                         <p className="text-sm text-muted-foreground">
-                          Ekspektasi gaji: {candidate.expectedSalary}
+                          Ekspektasi gaji: <span className="font-medium">{candidate.expectedSalary}</span>
                         </p>
                       </div>
-                      
                       <div className="flex space-x-2">
                         <Button variant="outline" size="sm" className="border-secondary text-secondary hover:bg-secondary hover:text-white">
                           Lihat Profil
@@ -539,13 +468,13 @@ export default function CompanyDashboard() {
                   </div>
                 </div>
               </div>
-              
               <div className="mt-4 pt-4 border-t">
                 <p className="text-sm text-muted-foreground">
-                  Melamar pada: {new Date(candidate.appliedDate).toLocaleDateString('id-ID', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
+                  Melamar pada:{" "}
+                  {new Date(candidate.appliedDate).toLocaleDateString("id-ID", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
                   })}
                 </p>
               </div>
@@ -557,9 +486,7 @@ export default function CompanyDashboard() {
       {filteredCandidates.length === 0 && (
         <Card className="text-center py-12">
           <CardContent>
-            <p className="text-muted-foreground">
-              Tidak ada kandidat yang sesuai dengan filter yang dipilih.
-            </p>
+            <p className="text-muted-foreground">Tidak ada kandidat yang sesuai dengan filter yang dipilih.</p>
           </CardContent>
         </Card>
       )}

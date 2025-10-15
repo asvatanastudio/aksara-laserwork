@@ -1,6 +1,6 @@
-import { Card, CardContent } from "./ui/card";
-import { CheckCircle2, Target, Eye, Heart } from "lucide-react";
-import { ImageWithFallback } from './figma/ImageWithFallback';
+import { Card, CardContent } from "./ui/card.js";
+import { ImageWithFallback } from "./figma/ImageWithFallback.jsx";
+import { CheckCircle2, Target, Eye, Heart } from "lucide-react"; // <- Baris ini ditambahkan
 
 export default function AboutSection() {
   return (
@@ -9,15 +9,13 @@ export default function AboutSection() {
         <div className="text-center mb-16">
           <span className="text-primary uppercase tracking-wider">Tentang Kami</span>
           <h2 className="mt-2 uppercase tracking-wide">Mengapa Memilih Aksara Laserwork?</h2>
-          <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
-            Kami adalah perusahaan terdepan dalam industri laser cutting dan engraving dengan komitmen terhadap kualitas dan inovasi
-          </p>
+          <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">Kami adalah perusahaan terdepan dalam industri laser cutting dan engraving dengan komitmen terhadap kualitas dan inovasi</p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
           <div className="relative">
             <div className="rounded-lg overflow-hidden border-l-4 border-l-primary shadow-xl">
-              <ImageWithFallback 
+              <ImageWithFallback
                 src="https://images.unsplash.com/photo-1647427060118-4911c9821b82?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxpbmR1c3RyaWFsJTIwbWFudWZhY3R1cmluZ3xlbnwxfHx8fDE3NTkzMjM5ODR8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
                 alt="Industrial Manufacturing"
                 className="w-full h-full object-cover"
@@ -28,7 +26,8 @@ export default function AboutSection() {
           <div className="space-y-6">
             <h3 className="uppercase tracking-wide text-primary">Pengalaman & Keahlian</h3>
             <p className="text-muted-foreground leading-relaxed">
-              Dengan lebih dari 10 tahun pengalaman di industri laser cutting dan engraving, Aksara Laserwork telah dipercaya oleh ratusan klien dari berbagai sektor industri. Kami menggunakan teknologi laser terkini yang dikombinasikan dengan keahlian tim profesional untuk menghasilkan produk berkualitas tinggi.
+              Dengan lebih dari 10 tahun pengalaman di industri laser cutting dan engraving, Aksara Laserwork telah dipercaya oleh ratusan klien dari berbagai sektor industri. Kami menggunakan teknologi laser terkini yang dikombinasikan
+              dengan keahlian tim profesional untuk menghasilkan produk berkualitas tinggi.
             </p>
 
             <div className="space-y-3">
@@ -72,9 +71,7 @@ export default function AboutSection() {
                 <Eye className="h-6 w-6 text-primary" />
               </div>
               <h3 className="mb-3 uppercase tracking-wide">Visi</h3>
-              <p className="text-muted-foreground">
-                Menjadi perusahaan laser cutting & engraving terdepan di Indonesia yang dikenal dengan inovasi, kualitas, dan kepercayaan pelanggan.
-              </p>
+              <p className="text-muted-foreground">Menjadi perusahaan laser cutting & engraving terdepan di Indonesia yang dikenal dengan inovasi, kualitas, dan kepercayaan pelanggan.</p>
             </CardContent>
           </Card>
 
@@ -84,9 +81,7 @@ export default function AboutSection() {
                 <Target className="h-6 w-6 text-primary" />
               </div>
               <h3 className="mb-3 uppercase tracking-wide">Misi</h3>
-              <p className="text-muted-foreground">
-                Memberikan solusi laser cutting & engraving berkualitas tinggi dengan teknologi terkini dan pelayanan terbaik untuk semua klien.
-              </p>
+              <p className="text-muted-foreground">Memberikan solusi laser cutting & engraving berkualitas tinggi dengan teknologi terkini dan pelayanan terbaik untuk semua klien.</p>
             </CardContent>
           </Card>
 
@@ -96,9 +91,7 @@ export default function AboutSection() {
                 <Heart className="h-6 w-6 text-primary" />
               </div>
               <h3 className="mb-3 uppercase tracking-wide">Nilai</h3>
-              <p className="text-muted-foreground">
-                Integritas, presisi, inovasi, dan kepuasan pelanggan adalah nilai utama yang menjadi fondasi setiap pekerjaan kami.
-              </p>
+              <p className="text-muted-foreground">Integritas, presisi, inovasi, dan kepuasan pelanggan adalah nilai utama yang menjadi fondasi setiap pekerjaan kami.</p>
             </CardContent>
           </Card>
         </div>

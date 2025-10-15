@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
-import { Badge } from "./ui/badge";
+import { useState } from "react";
+import { Button } from "./ui/button.js";
+import { Input } from "./ui/input.js";
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card.js";
+import { Badge } from "./ui/badge.js";
 import { Search, MapPin, Calendar, DollarSign } from "lucide-react";
-import { ImageWithFallback } from './figma/ImageWithFallback';
+import { ImageWithFallback } from "./figma/ImageWithFallback.js";
 
 const mockJobs = [
   {
@@ -16,7 +16,7 @@ const mockJobs = [
     type: "Full-time",
     posted: "2 hari yang lalu",
     description: "Kami mencari Frontend Developer yang berpengalaman dengan React dan TypeScript.",
-    skills: ["React", "TypeScript", "Tailwind CSS"]
+    skills: ["React", "TypeScript", "Tailwind CSS"],
   },
   {
     id: 2,
@@ -27,7 +27,7 @@ const mockJobs = [
     type: "Full-time",
     posted: "1 minggu yang lalu",
     description: "Bergabunglah dengan tim kreatif kami untuk menciptakan pengalaman digital yang menakjubkan.",
-    skills: ["Figma", "Adobe Creative Suite", "Prototyping"]
+    skills: ["Figma", "Adobe Creative Suite", "Prototyping"],
   },
   {
     id: 3,
@@ -38,18 +38,15 @@ const mockJobs = [
     type: "Remote",
     posted: "3 hari yang lalu",
     description: "Kembangkan sistem backend yang scalable untuk aplikasi fintech.",
-    skills: ["Node.js", "PostgreSQL", "AWS"]
-  }
+    skills: ["Node.js", "PostgreSQL", "AWS"],
+  },
 ];
 
 export default function JobSearch() {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [location, setLocation] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [location, setLocation] = useState("");
 
-  const filteredJobs = mockJobs.filter(job => 
-    job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    job.company.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredJobs = mockJobs.filter((job) => job.title.toLowerCase().includes(searchTerm.toLowerCase()) || job.company.toLowerCase().includes(searchTerm.toLowerCase()));
 
   return (
     <div className="max-w-7xl mx-auto px-6 py-8">
@@ -59,21 +56,11 @@ export default function JobSearch() {
         <div className="flex gap-4 mb-6">
           <div className="flex-1 relative">
             <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-            <Input
-              placeholder="Posisi, perusahaan, atau kata kunci..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10"
-            />
+            <Input placeholder="Posisi, perusahaan, atau kata kunci..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="pl-10" />
           </div>
           <div className="w-64 relative">
             <MapPin className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-            <Input
-              placeholder="Lokasi"
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-              className="pl-10"
-            />
+            <Input placeholder="Lokasi" value={location} onChange={(e) => setLocation(e.target.value)} className="pl-10" />
           </div>
           <Button className="bg-primary hover:bg-primary/90">Cari</Button>
         </div>

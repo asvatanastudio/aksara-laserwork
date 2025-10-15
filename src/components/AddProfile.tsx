@@ -1,9 +1,9 @@
-import { Button } from "./ui/button.tsx";
-import { Input } from "./ui/input.tsx";
-import { Label } from "./ui/label.tsx";
-import { Textarea } from "./ui/textarea.tsx";
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/card.tsx";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select.tsx";
+import { Button } from "./ui/button.js";
+import { Input } from "./ui/input.js";
+import { Label } from "./ui/label.js";
+import { Textarea } from "./ui/textarea.js";
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card.js";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select.js";
 import * as React from "react";
 import { useState } from "react";
 import { User, Briefcase, FileText, Upload } from "lucide-react";

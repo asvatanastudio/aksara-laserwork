@@ -1,4 +1,4 @@
-import { Button } from "./ui/button";
+import { Button } from "./ui/button.js";
 import { Menu, Mail, Phone } from "lucide-react";
 import { useState } from "react";
 
@@ -8,7 +8,7 @@ export default function CompanyNavigation() {
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: "smooth" });
       setIsMenuOpen(false);
     }
   };
@@ -28,34 +28,19 @@ export default function CompanyNavigation() {
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-6">
-          <button 
-            onClick={() => scrollToSection('home')}
-            className="text-white hover:text-primary transition-colors"
-          >
+          <button onClick={() => scrollToSection("home")} className="text-white hover:text-primary transition-colors">
             Beranda
           </button>
-          <button 
-            onClick={() => scrollToSection('about')}
-            className="text-white hover:text-primary transition-colors"
-          >
+          <button onClick={() => scrollToSection("about")} className="text-white hover:text-primary transition-colors">
             Tentang Kami
           </button>
-          <button 
-            onClick={() => scrollToSection('services')}
-            className="text-white hover:text-primary transition-colors"
-          >
+          <button onClick={() => scrollToSection("services")} className="text-white hover:text-primary transition-colors">
             Layanan
           </button>
-          <button 
-            onClick={() => scrollToSection('portfolio')}
-            className="text-white hover:text-primary transition-colors"
-          >
+          <button onClick={() => scrollToSection("portfolio")} className="text-white hover:text-primary transition-colors">
             Portfolio
           </button>
-          <button 
-            onClick={() => scrollToSection('contact')}
-            className="text-white hover:text-primary transition-colors"
-          >
+          <button onClick={() => scrollToSection("contact")} className="text-white hover:text-primary transition-colors">
             Kontak
           </button>
         </div>
@@ -69,10 +54,7 @@ export default function CompanyNavigation() {
         </div>
 
         {/* Mobile Menu Button */}
-        <button 
-          className="md:hidden text-white"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-        >
+        <button className="md:hidden text-white" onClick={() => setIsMenuOpen(!isMenuOpen)}>
           <Menu className="h-6 w-6" />
         </button>
       </div>
@@ -80,34 +62,19 @@ export default function CompanyNavigation() {
       {/* Mobile Menu */}
       {isMenuOpen && (
         <div className="md:hidden mt-4 pb-4 space-y-3">
-          <button 
-            onClick={() => scrollToSection('home')}
-            className="block w-full text-left text-white hover:text-primary transition-colors py-2"
-          >
+          <button onClick={() => scrollToSection("home")} className="block w-full text-left text-white hover:text-primary transition-colors py-2">
             Beranda
           </button>
-          <button 
-            onClick={() => scrollToSection('about')}
-            className="block w-full text-left text-white hover:text-primary transition-colors py-2"
-          >
+          <button onClick={() => scrollToSection("about")} className="block w-full text-left text-white hover:text-primary transition-colors py-2">
             Tentang Kami
           </button>
-          <button 
-            onClick={() => scrollToSection('services')}
-            className="block w-full text-left text-white hover:text-primary transition-colors py-2"
-          >
+          <button onClick={() => scrollToSection("services")} className="block w-full text-left text-white hover:text-primary transition-colors py-2">
             Layanan
           </button>
-          <button 
-            onClick={() => scrollToSection('portfolio')}
-            className="block w-full text-left text-white hover:text-primary transition-colors py-2"
-          >
+          <button onClick={() => scrollToSection("portfolio")} className="block w-full text-left text-white hover:text-primary transition-colors py-2">
             Portfolio
           </button>
-          <button 
-            onClick={() => scrollToSection('contact')}
-            className="block w-full text-left text-white hover:text-primary transition-colors py-2"
-          >
+          <button onClick={() => scrollToSection("contact")} className="block w-full text-left text-white hover:text-primary transition-colors py-2">
             Kontak
           </button>
           <Button className="w-full bg-primary hover:bg-primary/90">Konsultasi Gratis</Button>
