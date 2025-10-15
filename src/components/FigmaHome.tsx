@@ -1,14 +1,31 @@
-import imgRoundedRectangle from "figma:asset/525b077c9c4ad814738f94cec502d04f76f0aa31.png";
-import imgImage1 from "figma:asset/2ba893119cdefcc658bacbf83d0cce620b8a6b87.png";
-import { useState } from "react";
-import { ImageWithFallback } from "./figma/ImageWithFallback";
-import { Card, CardContent } from "./ui/card";
-import { Input } from "./ui/input";
-import { Textarea } from "./ui/textarea";
-import { Label } from "./ui/label";
-import { Scissors, Printer, Package, CheckCircle, Phone, Mail, MapPin, Clock, Zap, Shield, Award, Sparkles, Target } from "lucide-react";
+import React, { useState } from "react";
+import { Scissors, Printer, CheckCircle, Phone, Mail, MapPin, Clock, Zap, Shield, Award, Sparkles, Target } from "lucide-react";
 
-export default function FigmaHome() {
+// --- Helper Components (Re-created to remove import errors) ---
+
+const Card = ({ className, ...props }: React.ComponentProps<"div">) => <div className={`bg-white rounded-lg border ${className || ""}`} {...props} />;
+
+const CardContent = ({ className, ...props }: React.ComponentProps<"div">) => <div className={`p-6 ${className || ""}`} {...props} />;
+
+const Input = ({ className, ...props }: React.ComponentProps<"input">) => <input className={`w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 ${className || ""}`} {...props} />;
+
+const Textarea = ({ className, ...props }: React.ComponentProps<"textarea">) => <textarea className={`w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 ${className || ""}`} {...props} />;
+
+const Label = ({ className, ...props }: React.ComponentProps<"label">) => <label className={`block text-sm font-medium text-gray-700 ${className || ""}`} {...props} />;
+
+const ImageWithFallback = ({ src, alt, className, ...props }: React.ComponentProps<"img">) => (
+  <img
+    src={src}
+    alt={alt}
+    className={className}
+    onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+      e.currentTarget.src = `https://placehold.co/600x450/cccccc/ffffff?text=Image+Not+Found`;
+    }}
+    {...props}
+  />
+);
+
+export default function App() {
   const [activeSection, setActiveSection] = useState("beranda");
   const [formData, setFormData] = useState({
     name: "",
@@ -25,11 +42,18 @@ export default function FigmaHome() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     alert("Terima kasih! Pesan Anda telah dikirim. Kami akan segera menghubungi Anda.");
     setFormData({ name: "", email: "", phone: "", message: "" });
   };
+
+  const navLinkClasses = (sectionName: string) =>
+    `h-[61px] px-6 rounded-[10px] text-white text-[20px] font-normal transition-all ${activeSection === sectionName ? "bg-[#3d4451] border border-[#eeeeee]" : "bg-[#3d4451] border border-[#8c7dae] hover:border-[#eeeeee]"}`;
+
+  // Placeholder images
+  const imgRoundedRectangle = "https://placehold.co/67x61/8c7dae/ffffff?text=AL";
+  const imgImage1 = "https://placehold.co/800x500/515761/ffffff?text=Laser+Cutting";
 
   return (
     <div className="bg-white relative w-full min-h-screen">
@@ -49,24 +73,19 @@ export default function FigmaHome() {
 
           {/* Navigation Menu */}
           <nav className="flex items-center space-x-4">
-            <button
-              onClick={() => scrollToSection("beranda")}
-              className={`h-[61px] px-6 rounded-[10px] text-white text-[20px] font-normal transition-all ${
-                activeSection === "beranda" ? "bg-[#3d4451] border border-[#eeeeee]" : "bg-[#3d4451] border border-[#8c7dae] hover:border-[#eeeeee]"
-              }`}
-            >
+            <button onClick={() => scrollToSection("beranda")} className={navLinkClasses("beranda")}>
               BERANDA
             </button>
-            <button onClick={() => scrollToSection("layanan")} className="h-[61px] px-6 rounded-[10px] bg-[#3d4451] border border-[#8c7dae] text-white text-[20px] font-normal hover:border-[#eeeeee] transition-all">
+            <button onClick={() => scrollToSection("layanan")} className={navLinkClasses("layanan")}>
               LAYANAN
             </button>
-            <button onClick={() => scrollToSection("galeri")} className="h-[61px] px-6 rounded-[10px] bg-[#3d4451] border border-[#8c7dae] text-white text-[20px] font-normal hover:border-[#eeeeee] transition-all">
+            <button onClick={() => scrollToSection("galeri")} className={navLinkClasses("galeri")}>
               GALERI
             </button>
-            <button onClick={() => scrollToSection("tentang")} className="h-[61px] px-6 rounded-[10px] bg-[#3d4451] border border-[#8c7dae] text-white text-[20px] font-normal hover:border-[#eeeeee] transition-all">
+            <button onClick={() => scrollToSection("tentang")} className={navLinkClasses("tentang")}>
               TENTANG KAMI
             </button>
-            <button onClick={() => scrollToSection("kontak")} className="h-[61px] px-6 rounded-[10px] bg-[#3d4451] border border-[#8c7dae] text-white text-[20px] font-normal hover:border-[#eeeeee] transition-all">
+            <button onClick={() => scrollToSection("kontak")} className={navLinkClasses("kontak")}>
               KONTAK
             </button>
           </nav>
@@ -123,7 +142,7 @@ export default function FigmaHome() {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             {/* Laser Cutting */}
             <Card className="border-l-4 border-l-[#dd7311] hover:shadow-xl transition-all group">
-              <CardContent className="p-6">
+              <CardContent>
                 <div className="h-16 w-16 bg-[#dd7311]/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-[#dd7311] group-hover:scale-110 transition-all">
                   <Scissors className="h-8 w-8 text-[#dd7311] group-hover:text-white transition-colors" />
                 </div>
@@ -148,7 +167,7 @@ export default function FigmaHome() {
 
             {/* Laser Marking */}
             <Card className="border-l-4 border-l-[#dd7311] hover:shadow-xl transition-all group">
-              <CardContent className="p-6">
+              <CardContent>
                 <div className="h-16 w-16 bg-[#dd7311]/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-[#dd7311] group-hover:scale-110 transition-all">
                   <Target className="h-8 w-8 text-[#dd7311] group-hover:text-white transition-colors" />
                 </div>
@@ -173,7 +192,7 @@ export default function FigmaHome() {
 
             {/* Laser Engraving */}
             <Card className="border-l-4 border-l-[#dd7311] hover:shadow-xl transition-all group">
-              <CardContent className="p-6">
+              <CardContent>
                 <div className="h-16 w-16 bg-[#dd7311]/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-[#dd7311] group-hover:scale-110 transition-all">
                   <Printer className="h-8 w-8 text-[#dd7311] group-hover:text-white transition-colors" />
                 </div>
@@ -198,7 +217,7 @@ export default function FigmaHome() {
 
             {/* Custom Design */}
             <Card className="border-l-4 border-l-[#dd7311] hover:shadow-xl transition-all group">
-              <CardContent className="p-6">
+              <CardContent>
                 <div className="h-16 w-16 bg-[#dd7311]/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-[#dd7311] group-hover:scale-110 transition-all">
                   <Sparkles className="h-8 w-8 text-[#dd7311] group-hover:text-white transition-colors" />
                 </div>
@@ -225,7 +244,7 @@ export default function FigmaHome() {
           {/* Keunggulan */}
           <div className="grid md:grid-cols-3 gap-6 mt-16">
             <Card className="bg-white border-2 border-[#dd7311]/20 hover:border-[#dd7311]/40 transition-all">
-              <CardContent className="p-6 text-center">
+              <CardContent className="text-center">
                 <div className="h-14 w-14 bg-[#dd7311]/10 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Zap className="h-7 w-7 text-[#dd7311]" />
                 </div>
@@ -234,7 +253,7 @@ export default function FigmaHome() {
               </CardContent>
             </Card>
             <Card className="bg-white border-2 border-[#dd7311]/20 hover:border-[#dd7311]/40 transition-all">
-              <CardContent className="p-6 text-center">
+              <CardContent className="text-center">
                 <div className="h-14 w-14 bg-[#dd7311]/10 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Shield className="h-7 w-7 text-[#dd7311]" />
                 </div>
@@ -243,7 +262,7 @@ export default function FigmaHome() {
               </CardContent>
             </Card>
             <Card className="bg-white border-2 border-[#dd7311]/20 hover:border-[#dd7311]/40 transition-all">
-              <CardContent className="p-6 text-center">
+              <CardContent className="text-center">
                 <div className="h-14 w-14 bg-[#dd7311]/10 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Award className="h-7 w-7 text-[#dd7311]" />
                 </div>
@@ -374,25 +393,25 @@ export default function FigmaHome() {
           {/* Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16">
             <Card className="bg-gradient-to-br from-[#dd7311] to-[#c66510] text-white text-center border-0">
-              <CardContent className="p-6">
+              <CardContent>
                 <p className="text-4xl mb-2">500+</p>
                 <p className="text-sm opacity-90">Proyek Selesai</p>
               </CardContent>
             </Card>
             <Card className="bg-gradient-to-br from-[#3d4451] to-[#2d3441] text-white text-center border-0">
-              <CardContent className="p-6">
+              <CardContent>
                 <p className="text-4xl mb-2">300+</p>
                 <p className="text-sm opacity-90">Klien Puas</p>
               </CardContent>
             </Card>
             <Card className="bg-gradient-to-br from-[#dd7311] to-[#c66510] text-white text-center border-0">
-              <CardContent className="p-6">
+              <CardContent>
                 <p className="text-4xl mb-2">98%</p>
                 <p className="text-sm opacity-90">Kepuasan</p>
               </CardContent>
             </Card>
             <Card className="bg-gradient-to-br from-[#3d4451] to-[#2d3441] text-white text-center border-0">
-              <CardContent className="p-6">
+              <CardContent>
                 <p className="text-4xl mb-2">24h</p>
                 <p className="text-sm opacity-90">Response Time</p>
               </CardContent>
@@ -415,7 +434,14 @@ export default function FigmaHome() {
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
                     <Label htmlFor="name">Nama Lengkap</Label>
-                    <Input id="name" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} placeholder="Masukkan nama Anda" required className="mt-1.5 border-[#3d4451]/20 focus:border-[#dd7311]" />
+                    <Input
+                      id="name"
+                      value={formData.name}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, name: e.target.value })}
+                      placeholder="Masukkan nama Anda"
+                      required
+                      className="mt-1.5 border-[#3d4451]/20 focus:border-[#dd7311]"
+                    />
                   </div>
                   <div>
                     <Label htmlFor="email">Email</Label>
@@ -423,7 +449,7 @@ export default function FigmaHome() {
                       id="email"
                       type="email"
                       value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, email: e.target.value })}
                       placeholder="email@example.com"
                       required
                       className="mt-1.5 border-[#3d4451]/20 focus:border-[#dd7311]"
@@ -431,14 +457,21 @@ export default function FigmaHome() {
                   </div>
                   <div>
                     <Label htmlFor="phone">Nomor Telepon</Label>
-                    <Input id="phone" value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} placeholder="+62 xxx-xxxx-xxxx" required className="mt-1.5 border-[#3d4451]/20 focus:border-[#dd7311]" />
+                    <Input
+                      id="phone"
+                      value={formData.phone}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, phone: e.target.value })}
+                      placeholder="+62 xxx-xxxx-xxxx"
+                      required
+                      className="mt-1.5 border-[#3d4451]/20 focus:border-[#dd7311]"
+                    />
                   </div>
                   <div>
                     <Label htmlFor="message">Pesan</Label>
                     <Textarea
                       id="message"
                       value={formData.message}
-                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                      onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setFormData({ ...formData, message: e.target.value })}
                       placeholder="Ceritakan detail proyek Anda..."
                       rows={5}
                       required
@@ -455,7 +488,7 @@ export default function FigmaHome() {
             {/* Contact Info */}
             <div className="space-y-6">
               <Card className="border-l-4 border-l-[#dd7311] hover:shadow-lg transition-all">
-                <CardContent className="p-6">
+                <CardContent>
                   <div className="flex items-start space-x-4">
                     <div className="h-12 w-12 bg-[#dd7311]/10 rounded-lg flex items-center justify-center flex-shrink-0">
                       <MapPin className="h-6 w-6 text-[#dd7311]" />
@@ -475,7 +508,7 @@ export default function FigmaHome() {
               </Card>
 
               <Card className="border-l-4 border-l-[#dd7311] hover:shadow-lg transition-all">
-                <CardContent className="p-6">
+                <CardContent>
                   <div className="flex items-start space-x-4">
                     <div className="h-12 w-12 bg-[#dd7311]/10 rounded-lg flex items-center justify-center flex-shrink-0">
                       <Phone className="h-6 w-6 text-[#dd7311]" />
@@ -494,7 +527,7 @@ export default function FigmaHome() {
               </Card>
 
               <Card className="border-l-4 border-l-[#dd7311] hover:shadow-lg transition-all">
-                <CardContent className="p-6">
+                <CardContent>
                   <div className="flex items-start space-x-4">
                     <div className="h-12 w-12 bg-[#dd7311]/10 rounded-lg flex items-center justify-center flex-shrink-0">
                       <Mail className="h-6 w-6 text-[#dd7311]" />
@@ -512,7 +545,7 @@ export default function FigmaHome() {
               </Card>
 
               <Card className="border-l-4 border-l-[#dd7311] hover:shadow-lg transition-all">
-                <CardContent className="p-6">
+                <CardContent>
                   <div className="flex items-start space-x-4">
                     <div className="h-12 w-12 bg-[#dd7311]/10 rounded-lg flex items-center justify-center flex-shrink-0">
                       <Clock className="h-6 w-6 text-[#dd7311]" />
